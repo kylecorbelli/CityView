@@ -1,0 +1,3 @@
+rootProject.name = 'CityView'
+
+include ':app'
