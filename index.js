@@ -3,46 +3,36 @@
 import { Navigation } from 'react-native-navigation'
 import { AppRegistry } from 'react-native';
 import App from './App';
+import Icon from 'react-native-vector-icons/Ionicons'
 import { Provider } from 'react-redux'
 import { fetchCities } from './src/redux/actions'
-import CitiesListScreen from './src/containers/CitiesListScreen'
-
-import React from 'react'
-import { View, Text } from 'react-native'
-
+import registerComponents from './register-components'
 import configureStore from './src/redux/configure-store'
 
 const store = configureStore()
 store.dispatch(fetchCities())
 
-const CitiesMapScreen = () => (
-  <View style={{
-    alignItems: 'center',
-    height: '100%',
-    justifyContent: 'center',
-  }}>
-    <Text>Map Search Screen</Text>
-  </View>
-)
+registerComponents(store, Provider)
 
-CitiesMapScreen.navigatorStyle = {
-  navBarHidden: true,
+const main = async () => {
+  const listIcon = await Icon.getImageSource('ios-list', 40)
+  const mapIcon = await Icon.getImageSource('ios-map-outline', 40)
+  Navigation.startTabBasedApp({
+    tabs: [
+      {
+        icon: mapIcon,
+        label: 'Map',
+        screen: 'CitiesMapScreen',
+        title: 'Map',
+      },
+      {
+        icon: listIcon,
+        label: 'List',
+        screen: 'CitiesListScreen',
+        title: 'Cities',
+      },
+    ],
+  })
 }
 
-Navigation.registerComponent('CitiesListScreen', () => CitiesListScreen, store, Provider)
-Navigation.registerComponent('CitiesMapScreen', () => CitiesMapScreen, store, Provider)
-
-Navigation.startTabBasedApp({
-  tabs: [
-    {
-      label: 'Map',
-      screen: 'CitiesMapScreen',
-      title: 'Map',
-    },
-    {
-      label: 'List',
-      screen: 'CitiesListScreen',
-      title: 'Cities',
-    },
-  ],
-})
+main()

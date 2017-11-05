@@ -35,29 +35,42 @@ export const fetchCities = () => async (dispatch: Dispatch<Action>) => {
       method: 'GET',
       url: 'http://localhost:3000/api/v1/cities',
     })
+    console.log(response.data.data)
     const citiesById: CitiesByIdState = response.data.data.reduce(
       (cumulativeCitiesById: CitiesByIdState, currentCityData) => {
         const {
           id,
           attributes: {
+            'average-commute-minutes': averageCommuteMinutes,
             name,
             population,
+            'crime-index': crimeIndex,
             'population-density': populationDensity,
-            'image-url': image,
+            'image-url': imageUrl,
+            'median-home-price': medianHomePrice,
+            'poverty-rate': povertyRate,
             latitude,
             longitude,
+            state: stateName,
+            'unemployment-rate': unemploymentRate,
           },
         } = currentCityData
         return {
           ...cumulativeCitiesById,
           [id]: {
+            averageCommuteMinutes: Number(averageCommuteMinutes),
+            crimeIndex: Number(crimeIndex),
             id,
+            image: imageUrl ? `https:${imageUrl}` : 'https://d30y9cdsu7xlg0.cloudfront.net/png/10486-200.png',
+            latitude: Number(latitude),
+            longitude: Number(longitude),
+            medianHomePrice,
             name,
             population,
             populationDensity,
-            image,
-            latitude: Number(latitude),
-            longitude: Number(longitude),
+            povertyRate: Number(povertyRate),
+            stateName,
+            unemploymentRate: Number(unemploymentRate),
           },
         }
       },

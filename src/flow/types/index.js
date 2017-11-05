@@ -1,13 +1,24 @@
 // @flow
 
 export type City = {
+  +averageCommuteMinutes: number,
+  +crimeIndex: number,
   +id: string,
-  +name: string,
-  +population: number,
-  +populationDensity: number,
   +image: string | null,
   +latitude: number,
   +longitude: number,
+  +medianHomePrice: number,
+  +name: string,
+  +population: number,
+  +populationDensity: number,
+  +povertyRate: number,
+  +stateName: string,
+  +unemploymentRate: number,
+}
+
+export type Navigator = {
+  +push: (options: { +screen: string }) => void,
+  +pop: () => void,
 }
 
 export type AppState = {

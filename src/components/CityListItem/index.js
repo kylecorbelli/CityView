@@ -5,15 +5,29 @@ import {
   Image,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native'
-import type { City } from 'src/flow/types'
+import type { City, Navigator } from 'src/flow/types'
+import { prettyNumber } from '../../services/text-formatting'
 
 type Props = {
   +city: City,
+  +navigator: Navigator,
 }
 
 export default class CityListItem extends Component<Props, {}> {
+  inspectCity = () => {
+    const { city, navigator } = this.props
+    navigator.push({
+      screen: 'CityDetailScreen',
+      title: city.name,
+      passProps: {
+        city,
+      },
+    })
+  }
+
   render () {
     const {
       city: {
@@ -22,15 +36,14 @@ export default class CityListItem extends Component<Props, {}> {
         population,
       },
     } = this.props
-    const photoUri: string = image ? `https:${image}` : 'https://d30y9cdsu7xlg0.cloudfront.net/png/10486-200.png'
     return (
-      <View style={styles.container}>
-        <Image style={styles.photo} source={{ uri: photoUri }} />
+      <TouchableOpacity style={styles.container} onPress={this.inspectCity}>
+        <Image style={styles.photo} source={{ uri: image }} />
         <View style={styles.info}>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.population}>Pop. {population}</Text>
+          <Text style={styles.population}>Pop. {prettyNumber(population)}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }
