@@ -21,7 +21,6 @@ export default class CityListItem extends Component<Props, {}> {
     const { city, navigator } = this.props
     navigator.push({
       screen: 'CityDetailScreen',
-      title: city.name,
       passProps: {
         city,
       },

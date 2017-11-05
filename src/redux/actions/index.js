@@ -35,7 +35,6 @@ export const fetchCities = () => async (dispatch: Dispatch<Action>) => {
       method: 'GET',
       url: 'http://localhost:3000/api/v1/cities',
     })
-    console.log(response.data.data)
     const citiesById: CitiesByIdState = response.data.data.reduce(
       (cumulativeCitiesById: CitiesByIdState, currentCityData) => {
         const {
