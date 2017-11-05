@@ -4,16 +4,26 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
+		"test": "jest",
+		"flow": "flow",
+		"flow:stop": "flow stop"
 	},
 	"dependencies": {
+		"@types/react-redux": "^5.0.12",
+		"@types/remote-redux-devtools": "^0.5.2",
+		"axios": "^0.17.0",
 		"react": "16.0.0",
 		"react-native": "0.50.1",
-		"react-native-navigation": "^1.1.257"
+		"react-native-navigation": "^1.1.257",
+		"react-redux": "^5.0.6",
+		"redux": "^3.7.2",
+		"redux-thunk": "^2.2.0",
+		"remote-redux-devtools": "^0.5.12"
 	},
 	"devDependencies": {
 		"babel-jest": "21.2.0",
 		"babel-preset-react-native": "4.0.0",
+		"flow-bin": "^0.58.0",
 		"flow-typed": "^2.2.3",
 		"jest": "21.2.1",
 		"react-test-renderer": "16.0.0"
