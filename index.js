@@ -1,11 +1,21 @@
+// @flow
+
 import { Navigation } from 'react-native-navigation'
 import { AppRegistry } from 'react-native';
 import App from './App';
+import { Provider } from 'react-redux'
+import { fetchCities } from './src/redux/actions'
+import CitiesListScreen from './src/containers/CitiesListScreen'
 
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const MapSearchScreen = () => (
+import configureStore from './src/redux/configure-store'
+
+const store = configureStore()
+store.dispatch(fetchCities())
+
+const CitiesMapScreen = () => (
   <View style={{
     alignItems: 'center',
     height: '100%',
@@ -15,36 +25,24 @@ const MapSearchScreen = () => (
   </View>
 )
 
-MapSearchScreen.navigatorStyle = {
+CitiesMapScreen.navigatorStyle = {
   navBarHidden: true,
 }
 
-const ListSearchScreen = () => (
-  <View style={{
-    alignItems: 'center',
-    height: '100%',
-    justifyContent: 'center',
-  }}>
-    <Text>List Search Screen</Text>
-  </View>
-)
-
-Navigation.registerComponent('MapSearchScreen', () => MapSearchScreen)
-Navigation.registerComponent('ListSearchScreen', () => ListSearchScreen)
+Navigation.registerComponent('CitiesListScreen', () => CitiesListScreen, store, Provider)
+Navigation.registerComponent('CitiesMapScreen', () => CitiesMapScreen, store, Provider)
 
 Navigation.startTabBasedApp({
   tabs: [
     {
       label: 'Map',
-      screen: 'MapSearchScreen',
+      screen: 'CitiesMapScreen',
       title: 'Map',
     },
     {
       label: 'List',
-      screen: 'ListSearchScreen',
-      title: 'List',
+      screen: 'CitiesListScreen',
+      title: 'Cities',
     },
   ],
 })
-
-// AppRegistry.registerComponent('CityView', () => App);
