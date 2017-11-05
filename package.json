@@ -9,12 +9,14 @@
 		"flow:stop": "flow stop"
 	},
 	"dependencies": {
+		"@types/react-native-vector-icons": "^4.4.2",
 		"@types/react-redux": "^5.0.12",
 		"@types/remote-redux-devtools": "^0.5.2",
 		"axios": "^0.17.0",
 		"react": "16.0.0",
 		"react-native": "0.50.1",
 		"react-native-navigation": "^1.1.257",
+		"react-native-vector-icons": "^4.4.2",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
 		"redux-thunk": "^2.2.0",
