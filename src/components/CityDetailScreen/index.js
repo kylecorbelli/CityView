@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 
 type Props = {
   +city: City,
+  +commandType: string,
   +navigator: Navigator,
 }
 type State = {}
@@ -25,11 +26,31 @@ export default class CityDetailScreen extends Component<Props, State> {
     navBarHidden: true,
   }
 
-  navigateBack = () => {
-    this.props.navigator.pop()
+  navigateBack = (): void => {
+    const { commandType, navigator } = this.props
+    switch (commandType) {
+      case 'Push':
+        return navigator.pop()
+      case 'ShowModal':
+        return navigator.dismissModal()
+      default:
+        return
+    }
+  }
+
+  determineNavigateBackIconName = (): string => {
+    switch (this.props.commandType) {
+      case 'Push':
+        return 'ios-arrow-back-outline'
+      case 'ShowModal':
+        return 'ios-arrow-down-outline'
+      default:
+        return 'ios-arrow-back-outline'
+    }
   }
 
   render () {
+    console.log(this.props)
     const {
       averageCommuteMinutes,
       crimeIndex,
@@ -45,7 +66,7 @@ export default class CityDetailScreen extends Component<Props, State> {
     return (
       <View style={styles.screen}>
         <TouchableOpacity style={styles.backIcon} onPress={this.navigateBack} hitSlop={{ bottom: 20, left: 20, right: 20, top: 20 }}>
-          <Icon name="md-arrow-back" size={35} color="white" />
+          <Icon name={this.determineNavigateBackIconName()} size={35} color="white" />
         </TouchableOpacity>
         <ScrollView>
           <Image style={styles.image} source={{ uri: image }}/>

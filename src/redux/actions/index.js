@@ -34,6 +34,7 @@ export const fetchCities = () => async (dispatch: Dispatch<Action>) => {
     const response = await axios({
       method: 'GET',
       url: 'http://localhost:3000/api/v1/cities',
+      // url: 'http://192.168.1.137:3000/api/v1/cities',
     })
     const citiesById: CitiesByIdState = response.data.data.reduce(
       (cumulativeCitiesById: CitiesByIdState, currentCityData) => {
