@@ -17,8 +17,10 @@ export type City = {
 }
 
 export type Navigator = {
+  +dismissModal: () => void,
   +push: (options: { +screen: string }) => void,
   +pop: () => void,
+  +showModal: (options: { +screen: string }) => void,
 }
 
 export type AppState = {
@@ -34,6 +36,11 @@ export type CitiesState = {
 
 export type CitiesByIdState = {
   [string]: City,
+}
+
+export type Icon = {
+  +scale: number,
+  +uri: string,
 }
 
 export type FetchCitiesRequestSent = {
